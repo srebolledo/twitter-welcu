@@ -25,7 +25,7 @@ get '/show/queries/?' do |n|
 	end
 	queries = tmp
 	"<h1>Searching queries</h1>" +
-	"Add one with /search/your_search<br>
+	"Add yours in localhost:4567/search/your search query<br>
 	<table><tr><td>" + queries.join("</td></tr><tr><td>") + "</td></tr></table>"
 end
 
