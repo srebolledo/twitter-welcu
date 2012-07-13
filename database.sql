@@ -1,7 +1,6 @@
 CREATE DATABASE `welcu` /*!40100 DEFAULT CHARACTER SET utf8 */$$
 
 delimiter $$
-
 CREATE TABLE `queries` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `last_id` varchar(255) DEFAULT NULL,
@@ -9,8 +8,8 @@ CREATE TABLE `queries` (
   `getted` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8$$
-delimiter $$
 
+delimiter $$
 CREATE TABLE `tweets` (
   `id` varchar(255) NOT NULL,
   `tweet` text,

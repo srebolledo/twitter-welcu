@@ -1,6 +1,6 @@
 require 'mysql'
 
-def connect(host = 'localhost', user = 'root', password = '',database = 'welcu')
+def connect(host = 'localhost', user = 'root', password = '', database = 'welcu')
 
 	connection = Mysql.new(host,user)
 	connection.select_db(database)
@@ -41,6 +41,20 @@ def search_queries_with_id()
  		queries[row[0]] = query
 	end
 	return queries
+end
+
+def queries_count()
+	connection = connect()
+	sql = "select count(*) as veces, queries.query from tweets, queries where tweets.query_id = queries.id group by queries.query desc"
+	result = connection.query(sql)
+	tmp = []
+	while fields = result.fetch_hash
+		t = {}
+		t["query"] = fields["query"]
+		t["veces"] = fields["veces"]
+		tmp.push(t)
+	end
+	return tmp
 end
 
 def add_search(search_term)

@@ -15,18 +15,20 @@ get '/search/*/?' do |n|
 end
 
 get '/show/queries/?' do |n|
-	queries = search_queries()
+	queries = queries_count()
 	tmp = []
+	tabla = ""
 	queries.each do |query|
-		print query
-		query.gsub!("%20"," ")
-		query.gsub!("%22"," ")
-		tmp.push(query)
+		# print query
+		query["query"].gsub!("%20"," ")
+		query["query"].gsub!("%22"," ")
+		# tmp.push(query)
+		tabla = tabla + "<tr><td>" + query["query"] + "</td><td>" + query["veces"]+"</td></tr>"
+
 	end
-	queries = tmp
 	"<h1>Searching queries</h1>" +
 	"Add yours in localhost:4567/search/your search query<br>
-	<table><tr><td>" + queries.join("</td></tr><tr><td>") + "</td></tr></table>"
+	<table><tr><th>Query</th><th>Count</th></tr>" + tabla + "</table>"
 end
 
 
