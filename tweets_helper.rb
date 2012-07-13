@@ -2,6 +2,7 @@ require 'net/http'
 require 'rubygems' #used by json/pure
 require 'json' #used to parse json
 require 'htmlentities'
+require 'database_helper'
 
 #Function get_tweet, it receives a search term and returns a hash containing the data
 def get_tweet(search,since_id = 0, throtle = 20)
@@ -27,7 +28,8 @@ def print_tweets(tweets_hash)
 	return ids.max
 end
 
-def save_tweets(tweets_hash,query_id,connection)
+def save_tweets(tweets_hash,query_id)
+	connection = connect()
 	ids = []
 	htmlent = HTMLEntities.new
 	tweets_hash.each_pair do |key,value|
@@ -41,3 +43,27 @@ def save_tweets(tweets_hash,query_id,connection)
 		end
 	end
 end
+
+def get_new_tweets()
+	connection = connect()
+	queries = search_queries_with_id()
+	queries.each do |key,query|
+		print "Query :" + query["query"] + "\n id: " + key + "\n max_id: " + query['last_id'] + "\n\n"
+		tweets = get_tweet(query["query"],query["last_id"],20)
+		max_id = print_tweets(tweets)
+		save_tweets(tweets,key)
+		if max_id.nil?
+			print "There's no new tweets. Yipee!"
+		else
+			connection.query('update welcu.queries set last_id = "'+max_id.to_s+'" where id = "'+key.to_s+'" ;')
+		end
+	end
+	exit
+	
+
+end
+
+
+
+
+
