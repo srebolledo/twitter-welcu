@@ -58,9 +58,6 @@ def get_new_tweets()
 			connection.query('update welcu.queries set last_id = "'+max_id.to_s+'" where id = "'+key.to_s+'" ;')
 		end
 	end
-	exit
-	
-
 end
 
 

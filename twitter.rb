@@ -43,7 +43,7 @@ end
 
 tweets = get_tweet(query_term,max_id,20)
 max_id = print_tweets(tweets)
-save_tweets(tweets,lastId,database)
+save_tweets(tweets,lastId)
 if max_id.nil?
 	print "There's no new tweets. Yipee!"
 else
