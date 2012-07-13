@@ -3,7 +3,7 @@ require 'database_helper'
 require 'htmlentities'
 
 #connecting to database
-database = connect('localhost','root','')
+database = connect()
 htmlent = HTMLEntities.new #used to clean the input received by the console.
 #The next part is the arguments that we receive by the console args.
 #It will parse them and preserve all the possible ", ' and special chars.
@@ -16,7 +16,7 @@ ARGV.each do |arg|
 	end
 end
 query_term = args.join('%20').to_s
-query_term = htmlent.encode(query_term)
+query_term = htmlent.encode(query_term).downcase
 print "The query is: " + query_term+ "\n"
 #End for parsing and joining the query_term for the search api in twitter
 
